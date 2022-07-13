@@ -15,5 +15,16 @@ body {
 #calculator-container {
     height: 500px;
     width: 375px;
-    border: solid;
+    display: flex;
+    flex-direction: column;
+}
+
+#screen {
+    background-color: white;
+    flex: 1;
+}
+
+#buttons {
+    background-color: rgb(58, 57, 57);
+    flex: 2;
 }
