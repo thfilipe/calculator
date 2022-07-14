@@ -1,9 +1,23 @@
+const buttons = document.getElementById('buttons');
+
+function operate(operator, num1, num2) {
+
+}
+
 function add(num1, num2) {
     return num1 + num2
 };
 
 function subtract(num1, num2) {
     return num1 - num2
+};
+
+function multiply(num1, num2) {
+    return num1 * num2
+};
+
+function power(num, power) {
+    return Math.pow(num, power)
 };
 
 function sum(num) {
@@ -13,13 +27,9 @@ function sum(num) {
     return num.reduce((acc, curr) => acc + curr)
 };
 
-function multiply(num) {
-    return num.reduce((acc, curr) => acc * curr)
-};
-
-function power(num, power) {
-    return Math.pow(num, power)
-};
+function divide(num1, num2) {
+    return num1 / num2
+}
 
 function factorial(fact) {
 
@@ -32,3 +42,6 @@ function factorial(fact) {
     }
     return sum
 };
+
+
+
