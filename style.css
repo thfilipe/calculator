@@ -12,19 +12,46 @@ body {
     background-color: #E4DFDA;
 }
 
+p {
+    text-align: right;
+    padding-right: 20px;
+    margin: 0;
+
+}
+
+#calculation {
+    font-size: 45px;
+}
+
+#total {
+    font-size: 20px;
+}
+
 #calculator-container {
     height: 500px;
     width: 375px;
     display: flex;
     flex-direction: column;
+
 }
 
 #screen {
     background-color: white;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+button {
+    font-size: 20px;
 }
 
 #buttons {
     background-color: rgb(58, 57, 57);
     flex: 2;
+    display: grid;
+    grid-template-columns: 93.75px 93.75px 93.75px 93.75px 1fr;
+    grid-template-rows: 83.3px 83.3px 83.3px 83.3px;
+
 }
