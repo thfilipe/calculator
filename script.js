@@ -1,10 +1,10 @@
-const numberButtons = document.getElementsByClassName('number');
-const operationButtons = document.getElementsByClassName('operation');
-const equalsButton = document.getElementById('equals');
-const allClearButton = document.getElementById('all-clear');
-const backButton = document.getElementById('back');
-const totalButton = document.getElementById('total');
-const calculationButton = document.getElementById('calculation');
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const deleteButton = document.querySelector('[data-delete]');
+const totalButton = document.querySelector('[data-total]');
+const calculationButton = document.querySelector('[data-calculation]');
 
 numberButtons.forEach(number => {
     console.log(number)
