@@ -7,8 +7,8 @@ const allClearButton = document.querySelector('#all-clear');
 const backButton = document.querySelector('#back');
 
 
-let totalOperand = '';
 let calculateOperand = '';
+let totalOperand = '';
 let operation = null;
 
 function handleButtons() {
@@ -20,10 +20,23 @@ function handleButtons() {
         })
 
     })
+    operationButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (calculateOperand === '') return;
+            if (button.textContent === "." && calculateOperand.includes('.')) return;
+            if (button.textContent === '.') {
+                calculateOperand += button.textContent;
+            } else {
+                totalOperand += " " + button.textContent + " ";
+            }
+            updateDisplay();
+        })
+    })
 }
 
 function updateDisplay() {
     calculateText.textContent = calculateOperand;
+    totalText.textContent = totalOperand;
 }
 
 handleButtons()
