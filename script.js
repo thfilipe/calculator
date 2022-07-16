@@ -9,7 +9,8 @@ const backButton = document.querySelector('#back');
 
 let calculateOperand = '';
 let totalOperand = '';
-let operation = null;
+let operation = undefined;
+
 
 function handleButtons() {
 
@@ -28,8 +29,9 @@ function handleButtons() {
             if (calculateOperand === '') return;
             if (button.textContent === "." && calculateOperand.includes('.')) return;
             operation = button.textContent;
-            operate();
+
             updateDisplay();
+            operate();
         })
     })
     equals()
@@ -49,11 +51,13 @@ function updateDisplay() {
 
 function operate() {
     if (calculateOperand === '') return;
+    totalOperand = `${calculateOperand} ${operation}`
+    calculateOperand = '';
     if (totalOperand !== '') {
         calculateResult()
     };
-    totalOperand = `${calculateOperand}${operation}`
-    calculateOperand = '';
+
+
 }
 
 function backspace() {
@@ -74,14 +78,16 @@ function backspace() {
 
 function equals() {
     equalsButton.addEventListener('click', () => {
+
         calculateResult()
         updateDisplay()
     })
 }
+
 function allClear() {
     allClearButton.addEventListener('click', () => {
         totalOperand = '';
-        operation = null;
+        operation = undefined;
         calculateOperand = '0';
         updateDisplay()
 
@@ -97,15 +103,14 @@ function calculateResult() {
     operation === '+' ? results = add(total, calculate)
         : operation === '-' ? results = subtract(total, calculate)
             : operation === 'x' ? results = multiply(total, calculate)
-                : operation === '÷' ? results = divide(total, calculate)
-                    : operation === '÷' && calculate === 0 ? results = "Results undefined"
+                : operation === '÷' && calculate === 0 ? results = "Results undefined"
+                    : operation === '÷' ? results = divide(total, calculate)
                         : '';
+    if (results === undefined) return;
 
     calculateOperand = results;
-    operation = null;
-    totalOperand = '';
-
-
+    totalOperand = `${results} ${operation}`;
+    operation = undefined;
 }
 
 // operator functions
