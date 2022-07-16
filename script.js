@@ -24,28 +24,43 @@ function handleButtons() {
         button.addEventListener('click', () => {
             if (calculateOperand === '') return;
             if (button.textContent === "." && calculateOperand.includes('.')) return;
-            if (button.textContent === '.') {
-                calculateOperand += button.textContent;
-            } else {
-                totalOperand += " " + button.textContent + " ";
-            }
+            operation = button.textContent;
+            operate();
             updateDisplay();
         })
     })
 }
+
+handleButtons()
 
 function updateDisplay() {
     calculateText.textContent = calculateOperand;
     totalText.textContent = totalOperand;
 }
 
-handleButtons()
 
+
+function operate() {
+    if (calculateOperand === '') return;
+    if (totalOperand !== '') {
+        result()
+    };
+
+    totalOperand = `${calculateOperand} ${operation}`
+    calculateOperand = '';
+}
+backspace()
+function backspace() {
+    backButton.addEventListener('click', () => {
+        calculateOperand = calculateOperand.slice(0, -1)
+        updateDisplay()
+    })
+}
 function allClear() {
-    calculateText.textContent = '';
-    totalText.textContent = '';
     totalOperand = '';
     calculateOperand = '';
+    operation = null;
+    updateDisplay()
 }
 
 function add(num1, num2) {
