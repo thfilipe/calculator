@@ -16,8 +16,9 @@ function handleButtons() {
     numberButtons.forEach(button => {
         button.addEventListener('click', () => {
             calculateOperand === '0' ? calculateOperand = "" : '';
+            calculateOperand = calculateOperand.toString();
             if (button.textContent === "." && calculateOperand.includes('.')) return;
-            calculateOperand += button.textContent;
+            calculateOperand += button.textContent.toString();
             updateDisplay();
         })
 
@@ -31,6 +32,7 @@ function handleButtons() {
             updateDisplay();
         })
     })
+    equals()
     backspace()
     allClear()
 }
@@ -48,7 +50,7 @@ function updateDisplay() {
 function operate() {
     if (calculateOperand === '') return;
     if (totalOperand !== '') {
-        result()
+        calculateResult()
     };
     totalOperand = `${calculateOperand}${operation}`
     calculateOperand = '';
@@ -62,7 +64,7 @@ function backspace() {
             calculateOperand = '0';
 
         } else {
-            calculateOperand = calculateOperand.slice(0, -1);
+            calculateOperand = calculateOperand.toString().slice(0, -1);
         }
 
         updateDisplay()
@@ -70,6 +72,12 @@ function backspace() {
 
 }
 
+function equals() {
+    equalsButton.addEventListener('click', () => {
+        calculateResult()
+        updateDisplay()
+    })
+}
 function allClear() {
     allClearButton.addEventListener('click', () => {
         totalOperand = '';
@@ -81,6 +89,24 @@ function allClear() {
 
 }
 
+function calculateResult() {
+    let calculate = parseFloat(calculateOperand);
+    let total = parseFloat(totalOperand);
+    let results;
+    if (isNaN(calculate) || isNaN(total)) return;
+    operation === '+' ? results = add(total, calculate)
+        : operation === '-' ? results = subtract(total, calculate)
+            : operation === 'x' ? results = multiply(total, calculate)
+                : operation === '÷' ? results = divide(total, calculate)
+                    : operation === '÷' && calculate === 0 ? results = "Results undefined"
+                        : '';
+
+    calculateOperand = results;
+    operation = null;
+    totalOperand = '';
+
+
+}
 
 // operator functions
 function add(num1, num2) {
