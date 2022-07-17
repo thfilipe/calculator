@@ -1,5 +1,5 @@
-const previousText = document.querySelector('#previous');
-const currentText = document.querySelector('#current');
+const previousVal = document.querySelector('#previous');
+const currentVal = document.querySelector('#current');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
@@ -8,56 +8,61 @@ const backButton = document.querySelector('#back');
 
 
 let currentOperand = '';
-let totalOperand = '';
+let previousOperand = '';
 let operation = undefined;
+let itemArray = [];
+const equationArray = [];
+let newNumber = false;
 
 
-function handleButtons() {
+numberButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
 
-    numberButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            currentOperand === '0' ? currentOperand = "" : '';
-            currentOperand = currentOperand.toString();
-            if (button.textContent === "." && currentOperand.includes('.')) return;
-            currentOperand += button.textContent.toString();
-            updateDisplay();
 
-        })
+        currentOperand === '0' ? currentOperand = "" : '';
+        currentOperand = currentOperand.toString();
+        if (button.textContent === "." && currentOperand.includes('.')) return;
+        currentOperand += button.textContent.toString();
+
+        updateDisplay();
+    })
+
+})
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+
+        if (currentOperand === '') return;
+        if (button.textContent === "." && currentOperand.includes('.')) return;
+        operation = button.textContent;
+
+        updateDisplay();
+        operate();
 
     })
-    operatorButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (currentOperand === '') return;
-            if (button.textContent === "." && currentOperand.includes('.')) return;
-            operation = button.textContent;
+})
 
-            updateDisplay();
-            operate()
 
-        })
-    })
-    equals()
-    backspace()
-    allClear()
-}
-
-handleButtons()
+equals()
+backspace()
+allClear()
+// handleButtons()
 
 
 function updateDisplay() {
-    currentText.textContent = currentOperand;
-    previousText.textContent = totalOperand;
+    currentVal.textContent = currentOperand;
+    previousVal.textContent = previousOperand;
 }
 
 
 
 function operate() {
     if (currentOperand === '') return;
-    totalOperand = `${currentOperand} ${operation}`
-    currentOperand = '';
-    if (totalOperand !== '') {
+    if (previousOperand !== '') {
         calculateResult()
     };
+    previousOperand = `${currentOperand} ${operation}`
+    currentOperand = '';
+
 }
 
 function backspace() {
@@ -80,7 +85,7 @@ function equals() {
 
 function allClear() {
     allClearButton.addEventListener('click', () => {
-        totalOperand = '';
+        previousOperand = '';
         operation = undefined;
         currentOperand = '0';
         updateDisplay()
@@ -88,20 +93,20 @@ function allClear() {
 }
 
 function calculateResult() {
-    let calculate = parseFloat(currentOperand);
-    let total = parseFloat(totalOperand);
+    let current = parseFloat(currentOperand);
+    let previous = parseFloat(previousOperand);
     let results;
-    if (isNaN(calculate) || isNaN(total)) return;
-    operation === '+' ? results = add(total, calculate)
-        : operation === '-' ? results = subtract(total, calculate)
-            : operation === 'x' ? results = multiply(total, calculate)
+    if (isNaN(current) || isNaN(previous)) return;
+    operation === '+' ? results = add(previous, current)
+        : operation === '-' ? results = subtract(previous, current)
+            : operation === 'x' ? results = multiply(previous, current)
                 : operation === '÷' && calculate === 0 ? results = "Results undefined"
-                    : operation === '÷' ? results = divide(total, calculate)
+                    : operation === '÷' ? results = divide(previous, current)
                         : '';
 
     if (results === undefined) return;
     currentOperand = results;
-    totalOperand = `${results} ${operation}`;
+    previousOperand = `${results} ${operation}`;
 
 
 }
