@@ -1,5 +1,5 @@
-const totalText = document.querySelector('#total');
-const calculateText = document.querySelector('#calculate');
+const previousText = document.querySelector('#previous');
+const currentText = document.querySelector('#current');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
@@ -7,7 +7,7 @@ const allClearButton = document.querySelector('#all-clear');
 const backButton = document.querySelector('#back');
 
 
-let calculateOperand = '';
+let currentOperand = '';
 let totalOperand = '';
 let operation = undefined;
 
@@ -16,22 +16,24 @@ function handleButtons() {
 
     numberButtons.forEach(button => {
         button.addEventListener('click', () => {
-            calculateOperand === '0' ? calculateOperand = "" : '';
-            calculateOperand = calculateOperand.toString();
-            if (button.textContent === "." && calculateOperand.includes('.')) return;
-            calculateOperand += button.textContent.toString();
+            currentOperand === '0' ? currentOperand = "" : '';
+            currentOperand = currentOperand.toString();
+            if (button.textContent === "." && currentOperand.includes('.')) return;
+            currentOperand += button.textContent.toString();
             updateDisplay();
+
         })
 
     })
     operatorButtons.forEach(button => {
         button.addEventListener('click', () => {
-            if (calculateOperand === '') return;
-            if (button.textContent === "." && calculateOperand.includes('.')) return;
+            if (currentOperand === '') return;
+            if (button.textContent === "." && currentOperand.includes('.')) return;
             operation = button.textContent;
 
             updateDisplay();
-            operate();
+            operate()
+
         })
     })
     equals()
@@ -43,42 +45,34 @@ handleButtons()
 
 
 function updateDisplay() {
-    calculateText.textContent = calculateOperand;
-    totalText.textContent = totalOperand;
+    currentText.textContent = currentOperand;
+    previousText.textContent = totalOperand;
 }
 
 
 
 function operate() {
-    if (calculateOperand === '') return;
-    totalOperand = `${calculateOperand} ${operation}`
-    calculateOperand = '';
+    if (currentOperand === '') return;
+    totalOperand = `${currentOperand} ${operation}`
+    currentOperand = '';
     if (totalOperand !== '') {
         calculateResult()
     };
-
-
 }
 
 function backspace() {
-
     backButton.addEventListener('click', () => {
-
-        if (calculateOperand.length === 1) {
-            calculateOperand = '0';
-
+        if (currentOperand.length === 1) {
+            currentOperand = '0';
         } else {
-            calculateOperand = calculateOperand.toString().slice(0, -1);
+            currentOperand = currentOperand.toString().slice(0, -1);
         }
-
         updateDisplay()
     })
-
 }
 
 function equals() {
     equalsButton.addEventListener('click', () => {
-
         calculateResult()
         updateDisplay()
     })
@@ -88,15 +82,13 @@ function allClear() {
     allClearButton.addEventListener('click', () => {
         totalOperand = '';
         operation = undefined;
-        calculateOperand = '0';
+        currentOperand = '0';
         updateDisplay()
-
     })
-
 }
 
 function calculateResult() {
-    let calculate = parseFloat(calculateOperand);
+    let calculate = parseFloat(currentOperand);
     let total = parseFloat(totalOperand);
     let results;
     if (isNaN(calculate) || isNaN(total)) return;
@@ -106,11 +98,12 @@ function calculateResult() {
                 : operation === '÷' && calculate === 0 ? results = "Results undefined"
                     : operation === '÷' ? results = divide(total, calculate)
                         : '';
-    if (results === undefined) return;
 
-    calculateOperand = results;
+    if (results === undefined) return;
+    currentOperand = results;
     totalOperand = `${results} ${operation}`;
-    operation = undefined;
+
+
 }
 
 // operator functions
