@@ -3,9 +3,9 @@ const currentVal = document.querySelector('#current');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
-const allClearButton = document.querySelector('#all-clear');
+const allClearButton = document.querySelector('#clear-entry');
 const backButton = document.querySelector('#back');
-
+const clearButton = document.querySelector('#clear')
 
 let currentOperand = '';
 let previousOperand = '';
@@ -18,13 +18,20 @@ let newNumber = false;
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
 
+        const newInput = button.textContent;
+        if (newNumber) {
+            currentVal.value = newInput;
+            newNumber = false;
+        } else {
+            currentVal.value = currentVal.value == 0 ? newInput : `${currentVal.value}${newInput}`
+        }
 
-        currentOperand === '0' ? currentOperand = "" : '';
-        currentOperand = currentOperand.toString();
-        if (button.textContent === "." && currentOperand.includes('.')) return;
-        currentOperand += button.textContent.toString();
+        // currentOperand === '0' ? currentOperand = "" : '';
+        // currentOperand = currentOperand.toString();
+        // if (button.textContent === "." && currentOperand.includes('.')) return;
+        // currentOperand += button.textContent.toString();
 
-        updateDisplay();
+        // updateDisplay();
     })
 
 })
