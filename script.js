@@ -1,12 +1,12 @@
 const previousVal = document.querySelector('#previous');
 const currentVal = document.querySelector('#current');
-
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
 
 let itemArray = [];
 const equationArray = [];
 let newNumber = false;
+
 
 
 const numberButtons = document.querySelectorAll('.number');
@@ -18,10 +18,68 @@ numberButtons.forEach(button => {
             newNumber = false;
         } else {
             currentVal.value = currentVal.value == 0 ? newInput : `${currentVal.value}${newInput}`
+        };
+    });
+
+});
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        // check equals sign
+        if (newNumber) {
+            previousVal.textContent = ""
+            itemArray = [];
+
+        }
+        const newOperator = button.textContent;
+        const value = currentVal.value;
+
+        // check there is a number
+        if (!itemArray.length && value == 0) return;
+
+        // start new equation
+        if (!itemArray.length) {
+            itemArray.push(value, newOperator);
+            previousVal.textContent = `${value}${newOperator}`
+            return newNumber = true;
+        }
+
+        if (itemArray.length) {
+            itemArray.push(value);
+
+            const equationObject = {
+                num1: parseFloat(itemArray[0]),
+                num2: parseFloat(value),
+                oper: itemArray[1]
+            }
+
+            equationArray.push(equationObject);
+
+            const equationString =
+                `${equationObject['num1']}
+                ${equationObject['oper']}
+                ${equationObject['num2']}`;
+
+            const newValue = calculateResult(equationString, currentVal)
+
+            previousVal.textContent = `${newValue} ${newOperator}`
+
+            itemArray = [newValue, newOperator];
+            newNumber = true;
+            console.log(equationArray);
+
         }
     })
-
 })
+
+const calculateResult = (equation, currentVal) => {
+    const regex = /(^[*/=])|(\s)/g;
+    equation.replace(regex, '');
+    const divideZero = /(\/0)/.test(equation);
+    if (divideZero) return currentVal.value = 'Cannot divide by zero';
+    return currentVal.value = eval(equation);
+
+}
 
 const clearButtons = document.querySelectorAll('#clear, #clear-entry');
 clearButtons.forEach(button => {
@@ -54,42 +112,6 @@ changeSignButton.addEventListener('click', () => {
 });
 
 
-
-operatorButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (currentOperand === '') return;
-        if (button.textContent === "." && currentOperand.includes('.')) return;
-        operation = button.textContent;
-        updateDisplay();
-        operate();
-    })
-})
-
-
-equals()
-
-
-
-
-function updateDisplay() {
-    currentVal.textContent = currentOperand;
-    previousVal.textContent = previousOperand;
-}
-
-
-
-function operate() {
-    if (currentOperand === '') return;
-    if (previousOperand !== '') {
-        calculateResult()
-    };
-    previousOperand = `${currentOperand} ${operation}`
-    currentOperand = '';
-
-}
-
-
-
 function equals() {
     equalsButton.addEventListener('click', () => {
         calculateResult()
@@ -98,24 +120,7 @@ function equals() {
 }
 
 
-function calculateResult() {
-    let current = parseFloat(currentOperand);
-    let previous = parseFloat(previousOperand);
-    let results;
-    if (isNaN(current) || isNaN(previous)) return;
-    operation === '+' ? results = add(previous, current)
-        : operation === '-' ? results = subtract(previous, current)
-            : operation === 'x' ? results = multiply(previous, current)
-                : operation === '÷' && calculate === 0 ? results = "Results undefined"
-                    : operation === '÷' ? results = divide(previous, current)
-                        : '';
 
-    if (results === undefined) return;
-    currentOperand = results;
-    previousOperand = `${results} ${operation}`;
-
-
-}
 
 // operator functions
 function add(num1, num2) {
