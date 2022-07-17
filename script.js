@@ -1,7 +1,7 @@
 const previousVal = document.querySelector('#previous');
 const currentVal = document.querySelector('#current');
 const operatorButtons = document.querySelectorAll('.operation');
-const equalsButton = document.querySelector('#equals');
+
 
 let itemArray = [];
 const equationArray = [];
@@ -31,7 +31,17 @@ operatorButtons.forEach(button => {
             itemArray = [];
 
         }
-        const newOperator = button.textContent;
+
+        // change operators
+        let newOperator;
+        if (button.textContent == 'x') {
+            newOperator = '*';
+        } else if (button.textContent == '÷') {
+            newOperator = '/';
+        } else {
+            newOperator = button.textContent
+        }
+
         const value = currentVal.value;
 
         // check there is a number
@@ -92,6 +102,44 @@ clearButtons.forEach(button => {
     });
 });
 
+const equalsButton = document.querySelector('#equals');
+equalsButton.addEventListener('click', () => {
+    const value = currentVal.value;
+    let equationObject;
+
+    if (!itemArray.length && equation.equationArray.length) {
+        const lastEquation = equationArray[equationArray.length - 1];
+        equationObject = {
+            num1: parseFloat(value),
+            num2: lastEquation.num2,
+            oper: lastEquation.oper
+        }
+    } else if (!itemArray.length) {
+        return value;
+    } else {
+        itemArray.push(value);
+        equationObject = {
+            num1: parseFloat(itemArray[0]),
+            num2: parseFloat(value),
+            oper: itemArray[1]
+        }
+    }
+
+
+    equationArray.push(equationObject);
+
+    const equationString =
+        `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`
+
+    calculateResult(equationString, currentVal);
+
+    previousVal.textContent = `${equationString} =`
+
+    newNumber = true;
+    itemArray = [];
+    console.log(equationArray);
+});
+
 const backButton = document.querySelector('#back');
 backButton.addEventListener('click', () => {
     if (currentVal.value.length == 1) {
@@ -112,36 +160,8 @@ changeSignButton.addEventListener('click', () => {
 });
 
 
-function equals() {
-    equalsButton.addEventListener('click', () => {
-        calculateResult()
-        updateDisplay()
-    })
-}
 
 
-
-
-// operator functions
-function add(num1, num2) {
-    return num1 + num2;
-};
-
-function subtract(num1, num2) {
-    return num1 - num2;
-};
-
-function multiply(num1, num2) {
-    return num1 * num2;
-};
-
-function power(num, power) {
-    return Math.pow(num, power);
-};
-
-function divide(num1, num2) {
-    return num1 / num2;
-}
 
 
 
