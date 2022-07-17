@@ -3,8 +3,6 @@ const currentVal = document.querySelector('#current');
 
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
-const allClearButton = document.querySelector('#clear-entry');
-
 
 let itemArray = [];
 const equationArray = [];
@@ -32,9 +30,9 @@ clearButtons.forEach(button => {
         if (e.target.classList.contains('clear')) {
             previousVal.textContent = '';
             itemArray = [];
-        }
-    })
-})
+        };
+    });
+});
 
 const backButton = document.querySelector('#back');
 backButton.addEventListener('click', () => {
@@ -44,19 +42,26 @@ backButton.addEventListener('click', () => {
         currentVal.value = currentVal.value.slice(0, -1);
     }
 
-})
+});
+
+const changeSignButton = document.querySelector('#change-sign');
+changeSignButton.addEventListener('click', () => {
+    if (currentVal.value.includes('-')) {
+        currentVal.value = currentVal.value.slice(1);
+    } else {
+        currentVal.value = '-' + currentVal.value;
+    }
+});
+
 
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-
         if (currentOperand === '') return;
         if (button.textContent === "." && currentOperand.includes('.')) return;
         operation = button.textContent;
-
         updateDisplay();
         operate();
-
     })
 })
 
