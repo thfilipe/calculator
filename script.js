@@ -1,11 +1,11 @@
 const previousVal = document.querySelector('#previous');
 const currentVal = document.querySelector('#current');
-const numberButtons = document.querySelectorAll('.number');
+
 const operatorButtons = document.querySelectorAll('.operation');
 const equalsButton = document.querySelector('#equals');
 const allClearButton = document.querySelector('#clear-entry');
-const backButton = document.querySelector('#back');
-const clearButton = document.querySelector('#clear')
+
+
 
 let currentOperand = '';
 let previousOperand = '';
@@ -15,9 +15,9 @@ const equationArray = [];
 let newNumber = false;
 
 
+const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-
         const newInput = button.textContent;
         if (newNumber) {
             currentVal.value = newInput;
@@ -25,16 +25,25 @@ numberButtons.forEach(button => {
         } else {
             currentVal.value = currentVal.value == 0 ? newInput : `${currentVal.value}${newInput}`
         }
-
-        // currentOperand === '0' ? currentOperand = "" : '';
-        // currentOperand = currentOperand.toString();
-        // if (button.textContent === "." && currentOperand.includes('.')) return;
-        // currentOperand += button.textContent.toString();
-
-        // updateDisplay();
     })
 
 })
+
+const clearButtons = document.querySelectorAll('#clear, #clear-entry');
+clearButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        currentVal.value = 0;
+        if (e.target.classList.contains('clear')) {
+            previousVal.textContent = '';
+            itemArray = [];
+        }
+    })
+})
+
+const backButton = document.querySelector('#back');
+
+
+
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
 
@@ -51,8 +60,7 @@ operatorButtons.forEach(button => {
 
 equals()
 backspace()
-allClear()
-// handleButtons()
+
 
 
 function updateDisplay() {
@@ -90,14 +98,6 @@ function equals() {
     })
 }
 
-function allClear() {
-    allClearButton.addEventListener('click', () => {
-        previousOperand = '';
-        operation = undefined;
-        currentOperand = '0';
-        updateDisplay()
-    })
-}
 
 function calculateResult() {
     let current = parseFloat(currentOperand);
