@@ -6,10 +6,6 @@ const equalsButton = document.querySelector('#equals');
 const allClearButton = document.querySelector('#clear-entry');
 
 
-
-let currentOperand = '';
-let previousOperand = '';
-let operation = undefined;
 let itemArray = [];
 const equationArray = [];
 let newNumber = false;
@@ -41,7 +37,14 @@ clearButtons.forEach(button => {
 })
 
 const backButton = document.querySelector('#back');
+backButton.addEventListener('click', () => {
+    if (currentVal.value.length == 1) {
+        currentVal.value = 0;
+    } else {
+        currentVal.value = currentVal.value.slice(0, -1);
+    }
 
+})
 
 
 operatorButtons.forEach(button => {
@@ -59,7 +62,7 @@ operatorButtons.forEach(button => {
 
 
 equals()
-backspace()
+
 
 
 
@@ -80,16 +83,7 @@ function operate() {
 
 }
 
-function backspace() {
-    backButton.addEventListener('click', () => {
-        if (currentOperand.length === 1) {
-            currentOperand = '0';
-        } else {
-            currentOperand = currentOperand.toString().slice(0, -1);
-        }
-        updateDisplay()
-    })
-}
+
 
 function equals() {
     equalsButton.addEventListener('click', () => {
