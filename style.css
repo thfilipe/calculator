@@ -12,18 +12,21 @@ body {
     background-color: #E4DFDA;
 }
 
-p {
-    text-align: right;
-    padding-right: 20px;
-    margin: 0;
-}
 
 #current {
     font-size: 45px;
+    text-align: right;
+    padding-right: 20px;
+    margin: 0;
+    border: none;
+    outline: none;
 }
 
 #previous {
     font-size: 20px;
+    text-align: right;
+    padding-right: 20px;
+    margin: 0;
 }
 
 #calculator-container {
@@ -41,6 +44,8 @@ p {
     flex-direction: column;
     justify-content: space-evenly;
     align-content: center;
+
+
 }
 
 button {
