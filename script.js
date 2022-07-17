@@ -50,7 +50,7 @@ operatorButtons.forEach(button => {
         // start new equation
         if (!itemArray.length) {
             itemArray.push(value, newOperator);
-            previousVal.textContent = `${value}${newOperator}`
+            previousVal.textContent = `${value} ${newOperator}`
             return newNumber = true;
         }
 
@@ -95,7 +95,7 @@ const clearButtons = document.querySelectorAll('#clear, #clear-entry');
 clearButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         currentVal.value = 0;
-        if (e.target.classList.contains('clear')) {
+        if (e.target.id == 'clear') {
             previousVal.textContent = '';
             itemArray = [];
         };
