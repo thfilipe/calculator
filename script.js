@@ -107,7 +107,7 @@ equalsButton.addEventListener('click', () => {
     const value = currentVal.value;
     let equationObject;
 
-    if (!itemArray.length && equation.equationArray.length) {
+    if (!itemArray.length && equationArray.length) {
         const lastEquation = equationArray[equationArray.length - 1];
         equationObject = {
             num1: parseFloat(value),
