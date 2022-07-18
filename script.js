@@ -64,11 +64,9 @@ operatorButtons.forEach(button => {
             }
 
             equationArray.push(equationObject);
-
+            console.log(equationArray)
             const equationString =
-                `${equationObject['num1']}
-                ${equationObject['oper']}
-                ${equationObject['num2']}`;
+                `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
             const newValue = calculateResult(equationString, currentVal)
 
@@ -76,15 +74,22 @@ operatorButtons.forEach(button => {
 
             itemArray = [newValue, newOperator];
             newNumber = true;
-            console.log(itemArray)
+
 
         }
     })
 })
 
 const calculateResult = (equation, currentVal) => {
+    let split = equation.split(" ")
+    let maths = {
+        '+': function (x, y) { return x + y },
+        '-': function (x, y) { return x - y },
+        '*': function (x, y) { return x * y },
+        '/': function (x, y) { return x / y }
+    };
 
-    return currentVal.value = eval(equation);
+    return currentVal.value = maths[split[1]](split[0], split[2]);
 
 }
 
