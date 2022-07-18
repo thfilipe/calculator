@@ -69,7 +69,7 @@ operatorButtons.forEach(button => {
                 `${equationObject['num1']}
                 ${equationObject['oper']}
                 ${equationObject['num2']}`;
-
+            console.log(equationString)
             const newValue = calculateResult(equationString, currentVal)
 
             previousVal.textContent = `${newValue} ${newOperator}`
@@ -87,6 +87,7 @@ const calculateResult = (equation, currentVal) => {
     equation.replace(regex, '');
     const divideZero = /(\/0)/.test(equation);
     if (divideZero) return currentVal.value = 'Cannot divide by zero';
+
     return currentVal.value = eval(equation);
 
 }
@@ -137,7 +138,7 @@ equalsButton.addEventListener('click', () => {
 
     newNumber = true;
     itemArray = [];
-    console.log(equationArray);
+
 });
 
 const backButton = document.querySelector('#back');
