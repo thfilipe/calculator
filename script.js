@@ -144,6 +144,11 @@ equalsButton.addEventListener('click', () => {
 
 const backButton = document.querySelector('#back');
 backButton.addEventListener('click', () => {
+
+    if (currentVal.value.length == 2 && currentVal.value.includes('-')) {
+        currentVal.value = -0;
+    }
+
     if (currentVal.value.length == 1) {
         currentVal.value = 0;
     } else {
