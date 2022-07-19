@@ -15,7 +15,7 @@ numberButtons.forEach(button => {
 
         if (newNumber) {
             currentVal.value =
-                newInput === '.' && currentVal.value.includes('.')
+                newInput === '.'
                     ? currentVal.value + "."
                     : newInput;
             newNumber = false;
@@ -25,7 +25,6 @@ numberButtons.forEach(button => {
             currentVal.value = currentVal.value == 0 && currentVal.value.length == 1 && newInput !== '.'
                 ? newInput : `${currentVal.value}${newInput}`
         }
-
     });
 });
 
@@ -113,6 +112,7 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
     const value = currentVal.value;
     let equationObject;
+
 
     if (!itemArray.length && equationArray.length) {
         const lastEquation = equationArray[equationArray.length - 1];
