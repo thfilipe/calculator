@@ -1,18 +1,19 @@
 const previousVal = document.querySelector('#previous');
 const currentVal = document.querySelector('#current');
-const operatorButtons = document.querySelectorAll('.operation');
 
 
 let itemArray = [];
-const equationArray = [];
+let equationArray = [];
 let newNumber = false;
-
 
 
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const newInput = button.textContent;
+        console.log(button.textContent)
+
+
         if (newNumber) {
             currentVal.value = newInput;
             newNumber = false;
@@ -20,9 +21,9 @@ numberButtons.forEach(button => {
             currentVal.value = currentVal.value == 0 ? newInput : `${currentVal.value}${newInput}`
         };
     });
-
 });
 
+const operatorButtons = document.querySelectorAll('.operation');
 operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         // check equals sign
@@ -74,8 +75,6 @@ operatorButtons.forEach(button => {
 
             itemArray = [newValue, newOperator];
             newNumber = true;
-
-
         }
     })
 })
@@ -97,8 +96,9 @@ const clearButtons = document.querySelectorAll('#clear, #clear-entry');
 clearButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         currentVal.value = 0;
+        previousVal.textContent = '';
         if (e.target.id == 'clear') {
-            previousVal.textContent = '';
+            equationArray = [];
             itemArray = [];
         };
     });
