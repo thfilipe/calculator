@@ -15,7 +15,7 @@ numberButtons.forEach(button => {
 
         if (newNumber) {
             currentVal.value =
-                newInput === '.'
+                newInput === '.' && currentVal.value.includes('.')
                     ? currentVal.value + "."
                     : newInput;
             newNumber = false;
@@ -93,9 +93,7 @@ const calculateResult = (equation, currentVal) => {
         '*': function (x, y) { return x * y },
         '/': function (x, y) { return x / y }
     };
-
     return currentVal.value = maths[split[1]](split[0], split[2]);
-
 }
 
 const clearButtons = document.querySelectorAll('#clear, #clear-entry');
