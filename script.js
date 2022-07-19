@@ -96,10 +96,11 @@ const clearButtons = document.querySelectorAll('#clear, #clear-entry');
 clearButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         currentVal.value = 0;
-        previousVal.textContent = '';
+
         if (e.target.id == 'clear') {
             equationArray = [];
             itemArray = [];
+            previousVal.textContent = '';
         };
     });
 });
