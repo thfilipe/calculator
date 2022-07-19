@@ -13,13 +13,19 @@ numberButtons.forEach(button => {
         const newInput = button.textContent;
         console.log(button.textContent)
 
-
         if (newNumber) {
-            currentVal.value = newInput;
+            currentVal.value =
+                newInput === '.'
+                    ? currentVal.value + "."
+                    : newInput;
             newNumber = false;
+        } else if (currentVal.value.includes('.') && newInput === '.') {
+            return;
         } else {
-            currentVal.value = currentVal.value == 0 ? newInput : `${currentVal.value}${newInput}`
-        };
+            currentVal.value = currentVal.value == 0 && currentVal.value.length == 1 && newInput !== '.'
+                ? newInput : `${currentVal.value}${newInput}`
+        }
+
     });
 });
 
