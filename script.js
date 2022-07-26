@@ -66,10 +66,10 @@ operatorButtons.forEach(button => {
                 num1: parseFloat(itemArray[0]),
                 num2: parseFloat(value),
                 oper: itemArray[1]
-            }
+            };
 
             equationArray.push(equationObject);
-            console.log(equationArray)
+            console.log(equationArray);
             const equationString =
                 `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
@@ -119,7 +119,7 @@ equalsButton.addEventListener('click', () => {
             num1: parseFloat(value),
             num2: lastEquation.num2,
             oper: lastEquation.oper
-        }
+        };
     } else if (!itemArray.length) {
         return value;
     } else {
@@ -128,7 +128,7 @@ equalsButton.addEventListener('click', () => {
             num1: parseFloat(itemArray[0]),
             num2: parseFloat(value),
             oper: itemArray[1]
-        }
+        };
     };
 
 
@@ -151,13 +151,13 @@ backButton.addEventListener('click', () => {
 
     if (currentVal.value.length == 2 && currentVal.value.includes('-')) {
         currentVal.value = -0;
-    }
+    };
 
     if (currentVal.value.length == 1) {
         currentVal.value = 0;
     } else {
         currentVal.value = currentVal.value.slice(0, -1);
-    }
+    };
 
 });
 
@@ -167,7 +167,7 @@ changeSignButton.addEventListener('click', () => {
         currentVal.value = currentVal.value.slice(1);
     } else {
         currentVal.value = '-' + currentVal.value;
-    }
+    };
 });
 
 
