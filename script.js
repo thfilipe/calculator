@@ -15,7 +15,7 @@ numberButtons.forEach(button => {
         if (newNumber) {
             currentVal.value =
                 newInput === '.'
-                    ? currentVal.value + "."
+                    ? currentVal.value
                     : newInput;
             newNumber = false;
         } else if (currentVal.value.includes('.') && newInput === '.') {
