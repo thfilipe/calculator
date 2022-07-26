@@ -6,12 +6,11 @@ let itemArray = [];
 let equationArray = [];
 let newNumber = false;
 
-
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const newInput = button.textContent;
-        console.log(button.textContent)
+        console.log(button.textContent);
 
         if (newNumber) {
             currentVal.value =
@@ -23,7 +22,7 @@ numberButtons.forEach(button => {
             return;
         } else {
             currentVal.value = currentVal.value == 0 && currentVal.value.length == 1 && newInput !== '.'
-                ? newInput : `${currentVal.value}${newInput}`
+                ? newInput : `${currentVal.value}${newInput}`;
         }
     });
 });
@@ -33,7 +32,7 @@ operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         // check equals sign
         if (newNumber) {
-            previousVal.textContent = ""
+            previousVal.textContent = "";
             itemArray = [];
 
         }
@@ -45,7 +44,7 @@ operatorButtons.forEach(button => {
         } else if (button.textContent == '÷') {
             newOperator = '/';
         } else {
-            newOperator = button.textContent
+            newOperator = button.textContent;
         }
 
         const value = currentVal.value;
@@ -56,7 +55,7 @@ operatorButtons.forEach(button => {
         // start new equation
         if (!itemArray.length) {
             itemArray.push(value, newOperator);
-            previousVal.textContent = `${value} ${newOperator}`
+            previousVal.textContent = `${value} ${newOperator}`;
             return newNumber = true;
         }
 
@@ -74,9 +73,9 @@ operatorButtons.forEach(button => {
             const equationString =
                 `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
-            const newValue = calculateResult(equationString, currentVal)
+            const newValue = calculateResult(equationString, currentVal);
 
-            previousVal.textContent = `${newValue} ${newOperator}`
+            previousVal.textContent = `${newValue} ${newOperator}`;
 
             itemArray = [newValue, newOperator];
             newNumber = true;
@@ -87,7 +86,7 @@ operatorButtons.forEach(button => {
 const calculateResult = (equation, currentVal) => {
     let split = equation.split(" ")
     let maths = {
-        '+': function (x, y) { return x + y },
+        '+': function (x, y) { return Number(x) + Number(y) },
         '-': function (x, y) { return x - y },
         '*': function (x, y) { return x * y },
         '/': function (x, y) { return x / y }
@@ -140,7 +139,7 @@ equalsButton.addEventListener('click', () => {
 
     calculateResult(equationString, currentVal);
 
-    previousVal.textContent = `${equationString} =`
+    previousVal.textContent = `${equationString} =`;
 
     newNumber = true;
     itemArray = [];
