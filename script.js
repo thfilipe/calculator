@@ -84,7 +84,7 @@ operatorButtons.forEach(button => {
 })
 
 const calculateResult = (equation, currentVal) => {
-    let split = equation.split(" ")
+    let split = equation.split(" ");
     let maths = {
         '+': function (x, y) { return Number(x) + Number(y) },
         '-': function (x, y) { return x - y },
