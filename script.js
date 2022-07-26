@@ -23,7 +23,7 @@ numberButtons.forEach(button => {
         } else {
             currentVal.value = currentVal.value == 0 && currentVal.value.length == 1 && newInput !== '.'
                 ? newInput : `${currentVal.value}${newInput}`;
-        }
+        };
     });
 });
 
@@ -35,7 +35,7 @@ operatorButtons.forEach(button => {
             previousVal.textContent = "";
             itemArray = [];
 
-        }
+        };
 
         // change operators
         let newOperator;
@@ -45,7 +45,7 @@ operatorButtons.forEach(button => {
             newOperator = '/';
         } else {
             newOperator = button.textContent;
-        }
+        };
 
         const value = currentVal.value;
 
@@ -57,7 +57,7 @@ operatorButtons.forEach(button => {
             itemArray.push(value, newOperator);
             previousVal.textContent = `${value} ${newOperator}`;
             return newNumber = true;
-        }
+        };
 
         if (itemArray.length) {
             itemArray.push(value);
@@ -79,9 +79,9 @@ operatorButtons.forEach(button => {
 
             itemArray = [newValue, newOperator];
             newNumber = true;
-        }
-    })
-})
+        };
+    });
+});
 
 const calculateResult = (equation, currentVal) => {
     let split = equation.split(" ");
@@ -92,7 +92,7 @@ const calculateResult = (equation, currentVal) => {
         '/': function (x, y) { return x / y }
     };
     return currentVal.value = maths[split[1]](split[0], split[2]);
-}
+};
 
 const clearButtons = document.querySelectorAll('#clear, #clear-entry');
 clearButtons.forEach(button => {
@@ -129,13 +129,13 @@ equalsButton.addEventListener('click', () => {
             num2: parseFloat(value),
             oper: itemArray[1]
         }
-    }
+    };
 
 
     equationArray.push(equationObject);
 
     const equationString =
-        `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`
+        `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
     calculateResult(equationString, currentVal);
 
