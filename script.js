@@ -8,8 +8,8 @@ let newNumber = false;
 const maths = {
     '+': function (x, y) { return Number(x) + Number(y) },
     '-': function (x, y) { return Number(x) - Number(y) },
-    '*': function (x, y) { return Number(x) * Number(y) },
-    '/': function (x, y) { return Number(x) / Number(y) }
+    'x': function (x, y) { return Number(x) * Number(y) },
+    '÷': function (x, y) { return Number(x) / Number(y) }
 };
 
 const numberButtons = document.querySelectorAll('.number');
@@ -35,32 +35,22 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operation');
 operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
+        const operator = button.textContent;
+        const value = currentVal.value;
+
         // check equals sign
         if (newNumber) {
             previousVal.textContent = "";
             itemArray = [];
-
         };
-
-        // change operators
-        let newOperator;
-        if (button.textContent == 'x') {
-            newOperator = '*';
-        } else if (button.textContent == '÷') {
-            newOperator = '/';
-        } else {
-            newOperator = button.textContent;
-        };
-
-        const value = currentVal.value;
 
         // check there is a number
         if (!itemArray.length && value == 0) return;
 
         // start new equation
         if (!itemArray.length) {
-            itemArray.push(value, newOperator);
-            previousVal.textContent = `${value} ${newOperator}`;
+            itemArray.push(value, operator);
+            previousVal.textContent = `${value} ${operator}`;
             return newNumber = true;
         };
 
@@ -80,9 +70,9 @@ operatorButtons.forEach(button => {
 
             const newValue = calculateResult(equationString, currentVal);
 
-            previousVal.textContent = `${newValue} ${newOperator}`;
+            previousVal.textContent = `${newValue} ${operator}`;
 
-            itemArray = [newValue, newOperator];
+            itemArray = [newValue, operator];
             newNumber = true;
         };
     });
