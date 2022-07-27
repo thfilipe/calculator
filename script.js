@@ -14,7 +14,7 @@ const maths = {
 
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
         const newInput = button.textContent;
 
         if (newNumber) {
@@ -31,7 +31,7 @@ numberButtons.forEach(button => {
 
 const decimalButton = document.querySelectorAll('.decimal');
 decimalButton.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
         const decimal = button.textContent;
 
         if (currentVal.value.includes(decimal)) return;
@@ -42,7 +42,7 @@ decimalButton.forEach(button => {
 
 const operatorButtons = document.querySelectorAll('.operation');
 operatorButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
         const operator = button.textContent;
         const value = currentVal.value;
 
