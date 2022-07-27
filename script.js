@@ -1,16 +1,21 @@
 const previousVal = document.querySelector('#previous');
 const currentVal = document.querySelector('#current');
 
-
 let itemArray = [];
 let equationArray = [];
 let newNumber = false;
+
+const maths = {
+    '+': function (x, y) { return Number(x) + Number(y) },
+    '-': function (x, y) { return Number(x) - Number(y) },
+    '*': function (x, y) { return Number(x) * Number(y) },
+    '/': function (x, y) { return Number(x) / Number(y) }
+};
 
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const newInput = button.textContent;
-        console.log(button.textContent);
 
         if (newNumber) {
             currentVal.value =
@@ -69,7 +74,7 @@ operatorButtons.forEach(button => {
             };
 
             equationArray.push(equationObject);
-            console.log(equationArray);
+
             const equationString =
                 `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
@@ -85,12 +90,6 @@ operatorButtons.forEach(button => {
 
 const calculateResult = (equation, currentVal) => {
     let split = equation.split(" ");
-    let maths = {
-        '+': function (x, y) { return Number(x) + Number(y) },
-        '-': function (x, y) { return x - y },
-        '*': function (x, y) { return x * y },
-        '/': function (x, y) { return x / y }
-    };
     return currentVal.value = maths[split[1]](split[0], split[2]);
 };
 
