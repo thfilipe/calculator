@@ -18,17 +18,25 @@ numberButtons.forEach(button => {
         const newInput = button.textContent;
 
         if (newNumber) {
-            currentVal.value =
-                newInput === '.'
-                    ? currentVal.value
-                    : newInput;
+            currentVal.value = newInput;
             newNumber = false;
-        } else if (currentVal.value.includes('.') && newInput === '.') {
-            return;
+        } else if (currentVal.value == 0 && currentVal.value.length == 1) {
+            currentVal.value = newInput;
         } else {
-            currentVal.value = currentVal.value == 0 && currentVal.value.length == 1 && newInput !== '.'
-                ? newInput : `${currentVal.value}${newInput}`;
-        };
+            currentVal.value = `${currentVal.value}${newInput}`
+        }
+
+    });
+});
+
+const decimalButton = document.querySelectorAll('.decimal');
+decimalButton.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const decimal = button.textContent;
+
+        if (currentVal.value.includes(decimal)) return;
+
+        currentVal.value = `${currentVal.value}${decimal}`
     });
 });
 
