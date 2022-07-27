@@ -69,7 +69,8 @@ operatorButtons.forEach(button => {
             const equationString =
                 `${equationObject['num1']} ${equationObject['oper']} ${equationObject['num2']}`;
 
-            const newValue = calculateResult(equationString);
+            currentVal.value = calculateResult(equationString);
+            const newValue = currentVal.value
 
             previousVal.textContent = `${newValue} ${operator}`;
 
