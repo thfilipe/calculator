@@ -24,7 +24,7 @@ numberButtons.forEach(button => {
             currentVal.value = newInput;
         } else {
             currentVal.value = `${currentVal.value}${newInput}`
-        }
+        };
 
     });
 });
